@@ -19,7 +19,7 @@ const ENV = 'DEV';
 const app = express();
 app.get('/', (req, res) => {
   res.statusCode = 200;
-  const msg = 'Hello from Redington Devops Team, this was awesome';
+  const msg = 'Hello from Redington Devops Team, this was awesome added a github runner with self-hosted';
   res.send(getPage(msg));
 });
 
