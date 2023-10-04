@@ -29,8 +29,8 @@ jobs:
       run: |
           sudo docker run --privileged --name my_docker -d docker:dind
           sudo docker exec my_docker docker info
-        continue-on-error: true
-        
+      continue-on-error: true
+
     - name: Login to Amazon ECR
       id: login-ecr
       run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 737185589565.dkr.ecr.us-east-2.amazonaws.com
