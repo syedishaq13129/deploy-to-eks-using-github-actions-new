@@ -29,9 +29,9 @@ jobs:
       id: login-ecr
       run: |
         aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 737185589565.dkr.ecr.ap-south-1.amazonaws.com
-        docker build -t testpoc .
-        docker tag testpoc:latest 737185589565.dkr.ecr.ap-south-1.amazonaws.com/testpoc:latest
-        docker push 737185589565.dkr.ecr.ap-south-1.amazonaws.com/testpoc:latest
+        sudo docker build -t testpoc .
+        sudo docker tag testpoc:latest 737185589565.dkr.ecr.ap-south-1.amazonaws.com/testpoc:latest
+        sudo docker push 737185589565.dkr.ecr.ap-south-1.amazonaws.com/testpoc:latest
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name Testpoc
