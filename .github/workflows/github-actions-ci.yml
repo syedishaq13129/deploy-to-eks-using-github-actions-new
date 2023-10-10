@@ -25,19 +25,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-south-1
 
-    - name: Login to Amazon ECR
+    - name: Login to Amazon ECR,Build, tag, and push docker image to Amazon ECR
       id: login-ecr
       run: |
         aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 737185589565.dkr.ecr.ap-south-1.amazonaws.com
-  
-    - name: Build, tag, and push docker image to Amazon ECR
-      env:
-        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: testpoc
-        IMAGE_TAG: 1.1
-      run: |
-        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        docker build -t testpoc .
+        docker tag testpoc:latest 737185589565.dkr.ecr.ap-south-1.amazonaws.com/testpoc:latest
+        docker push 737185589565.dkr.ecr.ap-south-1.amazonaws.com/testpoc:latest
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name Testpoc
