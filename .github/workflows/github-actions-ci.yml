@@ -1,4 +1,4 @@
-name: Node js app deploy to EKS
+name: Node js app deploy to EKS private cluster
 on:
   push:
     branches: [ "main" ]
@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted   #ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
     - name: Build, tag, and push docker image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: testpoc
+        REPOSITORY: docker-2048
         IMAGE_TAG: 1.1
       run: |
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -45,3 +45,4 @@ jobs:
       run: |
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
+        kubectl apply -f ingress.yaml
