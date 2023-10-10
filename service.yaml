@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: primuslearning-1
+  name: service-2048
 spec:
-  selector:
-    app: primuslearning
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
-  type: LoadBalancer
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: app-2048
+---
