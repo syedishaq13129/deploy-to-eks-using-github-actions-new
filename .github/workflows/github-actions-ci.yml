@@ -1,9 +1,9 @@
 name: Node js app deploy to EKS private cluster
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev/release1" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev/release1" ]
 
 jobs:
   deploy:
